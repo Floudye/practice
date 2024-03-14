@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:practice.Views"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        Title="MainWindowView" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
     <Grid>
-        
+        <Grid x:Name="BackgroundGrid">
+            <Grid.Background>
+                <ImageBrush ImageSource="\Resourses\cars.jpg" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Border Opacity="0.8" >
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="#FF4682B4" Offset="0"/>
+                        <GradientStop Color="DarkBlue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="650"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            
+            <StackPanel Grid.Row="1">
+                <Button Click="btn_cars_Click" Content="Cars" Style="{StaticResource StyleTransparentButton}"/>
+                <Button Click="btn_clients_Click" Content="Clients" Style="{StaticResource StyleTransparentButton}"/>
+                <Button Click="btn_rentals_Click" Content="Rentals" Style="{StaticResource StyleTransparentButton}"/>
+                <Button Click="btn_reports_Click" Content="Reports" Style="{StaticResource StyleTransparentButton}"/>
+            </StackPanel>
+            <Frame NavigationUIVisibility="Hidden" x:Name="MainFrane" Grid.Column="1" Grid.Row="1"  />
+        </Grid>
+        <Grid VerticalAlignment="Top">
+            <DockPanel Name="titleBar" VerticalAlignment="Top" HorizontalAlignment="Right" Height="32" LastChildFill="False" Background="Transparent">
+                <Button x:Name="btnMinimize" Style="{StaticResource StyleMinimizeButton}" Click="btnMinimize_Click" Margin="0 0 5 0"/>
+                <Button x:Name="btnClose" Style="{StaticResource StyleCloseButton}" Click="btnClose_Click" Margin="0 0 5 0"/>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище practiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище practiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CarColors">
           <Key>
             <PropertyRef Name="ColorID" />
@@ -77,7 +77,6 @@
           <Property Name="ClientID" Type="int" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="TotalPrice" Type="money" Nullable="false" />
           <Property Name="StatusID" Type="int" />
         </EntityType>
         <EntityType Name="ReturnCondition">
@@ -279,18 +278,70 @@
             <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="practiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="practiceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CarColors" EntityType="practiceModel.CarColors" />
+          <EntitySet Name="CarPrices" EntityType="practiceModel.CarPrices" />
+          <EntitySet Name="Cars" EntityType="practiceModel.Cars" />
+          <EntitySet Name="CarStatus" EntityType="practiceModel.CarStatus" />
+          <EntitySet Name="Clients" EntityType="practiceModel.Clients" />
+          <EntitySet Name="Payments" EntityType="practiceModel.Payments" />
+          <EntitySet Name="PaymentTypes" EntityType="practiceModel.PaymentTypes" />
+          <EntitySet Name="Rentals" EntityType="practiceModel.Rentals" />
+          <EntitySet Name="ReturnCondition" EntityType="practiceModel.ReturnCondition" />
+          <EntitySet Name="Returns" EntityType="practiceModel.Returns" />
+          <EntitySet Name="sysdiagrams" EntityType="practiceModel.sysdiagrams" />
+          <AssociationSet Name="FK__Cars__ColorID__3B75D760" Association="practiceModel.FK__Cars__ColorID__3B75D760">
+            <End Role="CarColors" EntitySet="CarColors" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CarPrices__CarID__412EB0B6" Association="practiceModel.FK__CarPrices__CarID__412EB0B6">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarPrices" EntitySet="CarPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cars__StatusID__3C69FB99" Association="practiceModel.FK__Cars__StatusID__3C69FB99">
+            <End Role="CarStatus" EntitySet="CarStatus" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__CarID__440B1D61" Association="practiceModel.FK__Rentals__CarID__440B1D61">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__StatusI__45F365D3" Association="practiceModel.FK__Rentals__StatusI__45F365D3">
+            <End Role="CarStatus" EntitySet="CarStatus" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__ClientI__44FF419A" Association="practiceModel.FK__Rentals__ClientI__44FF419A">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Paymen__5165187F" Association="practiceModel.FK__Payments__Paymen__5165187F">
+            <End Role="PaymentTypes" EntitySet="PaymentTypes" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Rental__5070F446" Association="practiceModel.FK__Payments__Rental__5070F446">
+            <End Role="Rentals" EntitySet="Rentals" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Returns__RentalI__4AB81AF0" Association="practiceModel.FK__Returns__RentalI__4AB81AF0">
+            <End Role="Rentals" EntitySet="Rentals" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Returns__Conditi__4BAC3F29" Association="practiceModel.FK__Returns__Conditi__4BAC3F29">
+            <End Role="ReturnCondition" EntitySet="ReturnCondition" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="CarColors">
           <Key>
             <PropertyRef Name="ColorID" />
           </Key>
           <Property Name="ColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ColorName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__ColorID__3B75D760" FromRole="CarColors" ToRole="Cars" />
+          <Property Name="ColorName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cars" Relationship="practiceModel.FK__Cars__ColorID__3B75D760" FromRole="CarColors" ToRole="Cars" />
         </EntityType>
         <EntityType Name="CarPrices">
           <Key>
@@ -298,46 +349,46 @@
           </Key>
           <Property Name="PriceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CarID" Type="Int32" />
-          <Property Name="DailyPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Cars" Relationship="Self.FK__CarPrices__CarID__412EB0B6" FromRole="CarPrices" ToRole="Cars" />
+          <Property Name="DailyPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Cars" Relationship="practiceModel.FK__CarPrices__CarID__412EB0B6" FromRole="CarPrices" ToRole="Cars" />
         </EntityType>
         <EntityType Name="Cars">
           <Key>
             <PropertyRef Name="CarID" />
           </Key>
           <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Brand" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="ColorID" Type="Int32" />
-          <Property Name="VIN" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIN" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
           <Property Name="StatusID" Type="Int32" />
-          <NavigationProperty Name="CarColors" Relationship="Self.FK__Cars__ColorID__3B75D760" FromRole="Cars" ToRole="CarColors" />
-          <NavigationProperty Name="CarPrices" Relationship="Self.FK__CarPrices__CarID__412EB0B6" FromRole="Cars" ToRole="CarPrices" />
-          <NavigationProperty Name="CarStatus" Relationship="Self.FK__Cars__StatusID__3C69FB99" FromRole="Cars" ToRole="CarStatus" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__CarID__440B1D61" FromRole="Cars" ToRole="Rentals" />
+          <NavigationProperty Name="CarColors" Relationship="practiceModel.FK__Cars__ColorID__3B75D760" FromRole="Cars" ToRole="CarColors" />
+          <NavigationProperty Name="CarPrices" Relationship="practiceModel.FK__CarPrices__CarID__412EB0B6" FromRole="Cars" ToRole="CarPrices" />
+          <NavigationProperty Name="CarStatus" Relationship="practiceModel.FK__Cars__StatusID__3C69FB99" FromRole="Cars" ToRole="CarStatus" />
+          <NavigationProperty Name="Rentals" Relationship="practiceModel.FK__Rentals__CarID__440B1D61" FromRole="Cars" ToRole="Rentals" />
         </EntityType>
         <EntityType Name="CarStatus">
           <Key>
             <PropertyRef Name="StatusID" />
           </Key>
           <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__StatusID__3C69FB99" FromRole="CarStatus" ToRole="Cars" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__StatusI__45F365D3" FromRole="CarStatus" ToRole="Rentals" />
+          <Property Name="StatusDescription" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cars" Relationship="practiceModel.FK__Cars__StatusID__3C69FB99" FromRole="CarStatus" ToRole="Cars" />
+          <NavigationProperty Name="Rentals" Relationship="practiceModel.FK__Rentals__StatusI__45F365D3" FromRole="CarStatus" ToRole="Rentals" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="ClientID" />
           </Key>
           <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Patronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__ClientI__44FF419A" FromRole="Clients" ToRole="Rentals" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rentals" Relationship="practiceModel.FK__Rentals__ClientI__44FF419A" FromRole="Clients" ToRole="Rentals" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
@@ -345,19 +396,19 @@
           </Key>
           <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RentalID" Type="Int32" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PaymentTypeID" Type="Int32" />
-          <NavigationProperty Name="PaymentTypes" Relationship="Self.FK__Payments__Paymen__5165187F" FromRole="Payments" ToRole="PaymentTypes" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK__Payments__Rental__5070F446" FromRole="Payments" ToRole="Rentals" />
+          <NavigationProperty Name="PaymentTypes" Relationship="practiceModel.FK__Payments__Paymen__5165187F" FromRole="Payments" ToRole="PaymentTypes" />
+          <NavigationProperty Name="Rentals" Relationship="practiceModel.FK__Payments__Rental__5070F446" FromRole="Payments" ToRole="Rentals" />
         </EntityType>
         <EntityType Name="PaymentTypes">
           <Key>
             <PropertyRef Name="PaymentTypeID" />
           </Key>
           <Property Name="PaymentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__Paymen__5165187F" FromRole="PaymentTypes" ToRole="Payments" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Payments" Relationship="practiceModel.FK__Payments__Paymen__5165187F" FromRole="PaymentTypes" ToRole="Payments" />
         </EntityType>
         <EntityType Name="Rentals">
           <Key>
@@ -368,21 +419,20 @@
           <Property Name="ClientID" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="StatusID" Type="Int32" />
-          <NavigationProperty Name="Cars" Relationship="Self.FK__Rentals__CarID__440B1D61" FromRole="Rentals" ToRole="Cars" />
-          <NavigationProperty Name="CarStatus" Relationship="Self.FK__Rentals__StatusI__45F365D3" FromRole="Rentals" ToRole="CarStatus" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK__Rentals__ClientI__44FF419A" FromRole="Rentals" ToRole="Clients" />
-          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__Rental__5070F446" FromRole="Rentals" ToRole="Payments" />
-          <NavigationProperty Name="Returns" Relationship="Self.FK__Returns__RentalI__4AB81AF0" FromRole="Rentals" ToRole="Returns" />
+          <NavigationProperty Name="Cars" Relationship="practiceModel.FK__Rentals__CarID__440B1D61" FromRole="Rentals" ToRole="Cars" />
+          <NavigationProperty Name="CarStatus" Relationship="practiceModel.FK__Rentals__StatusI__45F365D3" FromRole="Rentals" ToRole="CarStatus" />
+          <NavigationProperty Name="Clients" Relationship="practiceModel.FK__Rentals__ClientI__44FF419A" FromRole="Rentals" ToRole="Clients" />
+          <NavigationProperty Name="Payments" Relationship="practiceModel.FK__Payments__Rental__5070F446" FromRole="Rentals" ToRole="Payments" />
+          <NavigationProperty Name="Returns" Relationship="practiceModel.FK__Returns__RentalI__4AB81AF0" FromRole="Rentals" ToRole="Returns" />
         </EntityType>
         <EntityType Name="ReturnCondition">
           <Key>
             <PropertyRef Name="ConditionID" />
           </Key>
           <Property Name="ConditionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Returns" Relationship="Self.FK__Returns__Conditi__4BAC3F29" FromRole="ReturnCondition" ToRole="Returns" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Returns" Relationship="practiceModel.FK__Returns__Conditi__4BAC3F29" FromRole="ReturnCondition" ToRole="Returns" />
         </EntityType>
         <EntityType Name="Returns">
           <Key>
@@ -392,22 +442,22 @@
           <Property Name="RentalID" Type="Int32" />
           <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ConditionID" Type="Int32" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK__Returns__RentalI__4AB81AF0" FromRole="Returns" ToRole="Rentals" />
-          <NavigationProperty Name="ReturnCondition" Relationship="Self.FK__Returns__Conditi__4BAC3F29" FromRole="Returns" ToRole="ReturnCondition" />
+          <NavigationProperty Name="Rentals" Relationship="practiceModel.FK__Returns__RentalI__4AB81AF0" FromRole="Returns" ToRole="Rentals" />
+          <NavigationProperty Name="ReturnCondition" Relationship="practiceModel.FK__Returns__Conditi__4BAC3F29" FromRole="Returns" ToRole="ReturnCondition" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__Cars__ColorID__3B75D760">
-          <End Role="CarColors" Type="Self.CarColors" Multiplicity="0..1" />
-          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <End Type="practiceModel.CarColors" Role="CarColors" Multiplicity="0..1" />
+          <End Type="practiceModel.Cars" Role="Cars" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CarColors">
               <PropertyRef Name="ColorID" />
@@ -418,8 +468,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CarPrices__CarID__412EB0B6">
-          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
-          <End Role="CarPrices" Type="Self.CarPrices" Multiplicity="*" />
+          <End Type="practiceModel.Cars" Role="Cars" Multiplicity="0..1" />
+          <End Type="practiceModel.CarPrices" Role="CarPrices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cars">
               <PropertyRef Name="CarID" />
@@ -430,8 +480,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Cars__StatusID__3C69FB99">
-          <End Role="CarStatus" Type="Self.CarStatus" Multiplicity="0..1" />
-          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <End Type="practiceModel.CarStatus" Role="CarStatus" Multiplicity="0..1" />
+          <End Type="practiceModel.Cars" Role="Cars" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CarStatus">
               <PropertyRef Name="StatusID" />
@@ -442,8 +492,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Rentals__CarID__440B1D61">
-          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
-          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <End Type="practiceModel.Cars" Role="Cars" Multiplicity="0..1" />
+          <End Type="practiceModel.Rentals" Role="Rentals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cars">
               <PropertyRef Name="CarID" />
@@ -454,8 +504,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Rentals__StatusI__45F365D3">
-          <End Role="CarStatus" Type="Self.CarStatus" Multiplicity="0..1" />
-          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <End Type="practiceModel.CarStatus" Role="CarStatus" Multiplicity="0..1" />
+          <End Type="practiceModel.Rentals" Role="Rentals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CarStatus">
               <PropertyRef Name="StatusID" />
@@ -466,8 +516,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Rentals__ClientI__44FF419A">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <End Type="practiceModel.Clients" Role="Clients" Multiplicity="0..1" />
+          <End Type="practiceModel.Rentals" Role="Rentals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
               <PropertyRef Name="ClientID" />
@@ -478,8 +528,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Payments__Paymen__5165187F">
-          <End Role="PaymentTypes" Type="Self.PaymentTypes" Multiplicity="0..1" />
-          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <End Type="practiceModel.PaymentTypes" Role="PaymentTypes" Multiplicity="0..1" />
+          <End Type="practiceModel.Payments" Role="Payments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentTypes">
               <PropertyRef Name="PaymentTypeID" />
@@ -490,8 +540,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Payments__Rental__5070F446">
-          <End Role="Rentals" Type="Self.Rentals" Multiplicity="0..1" />
-          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <End Type="practiceModel.Rentals" Role="Rentals" Multiplicity="0..1" />
+          <End Type="practiceModel.Payments" Role="Payments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rentals">
               <PropertyRef Name="RentalID" />
@@ -502,8 +552,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Returns__RentalI__4AB81AF0">
-          <End Role="Rentals" Type="Self.Rentals" Multiplicity="0..1" />
-          <End Role="Returns" Type="Self.Returns" Multiplicity="*" />
+          <End Type="practiceModel.Rentals" Role="Rentals" Multiplicity="0..1" />
+          <End Type="practiceModel.Returns" Role="Returns" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rentals">
               <PropertyRef Name="RentalID" />
@@ -514,8 +564,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Returns__Conditi__4BAC3F29">
-          <End Role="ReturnCondition" Type="Self.ReturnCondition" Multiplicity="0..1" />
-          <End Role="Returns" Type="Self.Returns" Multiplicity="*" />
+          <End Type="practiceModel.ReturnCondition" Role="ReturnCondition" Multiplicity="0..1" />
+          <End Type="practiceModel.Returns" Role="Returns" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReturnCondition">
               <PropertyRef Name="ConditionID" />
@@ -525,59 +575,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="practiceEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CarColors" EntityType="Self.CarColors" />
-          <EntitySet Name="CarPrices" EntityType="Self.CarPrices" />
-          <EntitySet Name="Cars" EntityType="Self.Cars" />
-          <EntitySet Name="CarStatus" EntityType="Self.CarStatus" />
-          <EntitySet Name="Clients" EntityType="Self.Clients" />
-          <EntitySet Name="Payments" EntityType="Self.Payments" />
-          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" />
-          <EntitySet Name="Rentals" EntityType="Self.Rentals" />
-          <EntitySet Name="ReturnCondition" EntityType="Self.ReturnCondition" />
-          <EntitySet Name="Returns" EntityType="Self.Returns" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK__Cars__ColorID__3B75D760" Association="Self.FK__Cars__ColorID__3B75D760">
-            <End Role="CarColors" EntitySet="CarColors" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CarPrices__CarID__412EB0B6" Association="Self.FK__CarPrices__CarID__412EB0B6">
-            <End Role="Cars" EntitySet="Cars" />
-            <End Role="CarPrices" EntitySet="CarPrices" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cars__StatusID__3C69FB99" Association="Self.FK__Cars__StatusID__3C69FB99">
-            <End Role="CarStatus" EntitySet="CarStatus" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rentals__CarID__440B1D61" Association="Self.FK__Rentals__CarID__440B1D61">
-            <End Role="Cars" EntitySet="Cars" />
-            <End Role="Rentals" EntitySet="Rentals" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rentals__StatusI__45F365D3" Association="Self.FK__Rentals__StatusI__45F365D3">
-            <End Role="CarStatus" EntitySet="CarStatus" />
-            <End Role="Rentals" EntitySet="Rentals" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rentals__ClientI__44FF419A" Association="Self.FK__Rentals__ClientI__44FF419A">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Rentals" EntitySet="Rentals" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Payments__Paymen__5165187F" Association="Self.FK__Payments__Paymen__5165187F">
-            <End Role="PaymentTypes" EntitySet="PaymentTypes" />
-            <End Role="Payments" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Payments__Rental__5070F446" Association="Self.FK__Payments__Rental__5070F446">
-            <End Role="Rentals" EntitySet="Rentals" />
-            <End Role="Payments" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Returns__RentalI__4AB81AF0" Association="Self.FK__Returns__RentalI__4AB81AF0">
-            <End Role="Rentals" EntitySet="Rentals" />
-            <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Returns__Conditi__4BAC3F29" Association="Self.FK__Returns__Conditi__4BAC3F29">
-            <End Role="ReturnCondition" EntitySet="ReturnCondition" />
-            <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -587,112 +584,111 @@
           <EntitySetMapping Name="CarColors">
             <EntityTypeMapping TypeName="practiceModel.CarColors">
               <MappingFragment StoreEntitySet="CarColors">
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
                 <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarPrices">
             <EntityTypeMapping TypeName="practiceModel.CarPrices">
               <MappingFragment StoreEntitySet="CarPrices">
-                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
-                <ScalarProperty Name="CarID" ColumnName="CarID" />
                 <ScalarProperty Name="DailyPrice" ColumnName="DailyPrice" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cars">
             <EntityTypeMapping TypeName="practiceModel.Cars">
               <MappingFragment StoreEntitySet="Cars">
-                <ScalarProperty Name="CarID" ColumnName="CarID" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-                <ScalarProperty Name="VIN" ColumnName="VIN" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarStatus">
             <EntityTypeMapping TypeName="practiceModel.CarStatus">
               <MappingFragment StoreEntitySet="CarStatus">
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="practiceModel.Clients">
               <MappingFragment StoreEntitySet="Clients">
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="practiceModel.Payments">
               <MappingFragment StoreEntitySet="Payments">
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
             <EntityTypeMapping TypeName="practiceModel.PaymentTypes">
               <MappingFragment StoreEntitySet="PaymentTypes">
-                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rentals">
             <EntityTypeMapping TypeName="practiceModel.Rentals">
               <MappingFragment StoreEntitySet="Rentals">
-                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
-                <ScalarProperty Name="CarID" ColumnName="CarID" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ReturnCondition">
             <EntityTypeMapping TypeName="practiceModel.ReturnCondition">
               <MappingFragment StoreEntitySet="ReturnCondition">
-                <ScalarProperty Name="ConditionID" ColumnName="ConditionID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ConditionID" ColumnName="ConditionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Returns">
             <EntityTypeMapping TypeName="practiceModel.Returns">
               <MappingFragment StoreEntitySet="Returns">
-                <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
-                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
-                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
                 <ScalarProperty Name="ConditionID" ColumnName="ConditionID" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="RentalID" ColumnName="RentalID" />
+                <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="practiceModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

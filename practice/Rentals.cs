@@ -26,7 +26,6 @@ namespace practice
         public Nullable<int> ClientID { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
-        public decimal TotalPrice { get; set; }
         public Nullable<int> StatusID { get; set; }
     
         public virtual Cars Cars { get; set; }

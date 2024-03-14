@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "E:\workSpace\development\C#\repos\practice\practice\database.edmx" включено. 
+﻿// Создание кода T4 для модели "E:\workSpace\development\practice\practice\database.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.
